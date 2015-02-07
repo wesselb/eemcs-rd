@@ -29,7 +29,11 @@ function printTable(program, matches)
             end
             % Check if any student is scheduled
             if isempty(scheduled)
-                fprintf('-          | ');
+                fprintf('-');
+                for i = 1:(lineWidth-1)
+                    fprintf(' ');
+                end
+                fprintf(' | ');
             else
                 % Print first student
                 fprintf('%d', scheduled(1));
