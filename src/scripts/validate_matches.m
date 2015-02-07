@@ -1,4 +1,4 @@
-% Dependencies: matches, program
+% Dependencies: matches, program, verbose
 
 %% Check if all spots are assigned
 passed = 1;
@@ -74,9 +74,9 @@ end
 % Percentage perfect matches
 percentage = floor(100*sum(sum(compDayPerfectMatches))/numPerfectMatches);
 if percentage < 100
-    display(['INFO: perfect matches assigned: '...
+    info(['perfect matches assigned: '...
         num2str(sum(sum(compDayPerfectMatches))) '/'...
-        num2str(numPerfectMatches) ' (' num2str(percentage) '%)']);
+        num2str(numPerfectMatches) ' (' num2str(percentage) '%)'], verbose);
 end
 displayPassed('all perfect matches', percentage == 100);
 
@@ -102,10 +102,10 @@ for j = 1:program.numComps
     end
 end
 if numErrorRatio > 0
-    display(['INFO: threshold: ' num2str(threshold)...
+    info(['threshold: ' num2str(threshold)...
         ', average error ratio: '...
         num2str(round(100*totalErrorRatio/numErrorRatio)/100)...
-        ' (' num2str(numErrorRatio) ')']);
+        ' (' num2str(numErrorRatio) ')'], verbose);
 end
 displayPassed('ratio company student interest matches', passed);
 
