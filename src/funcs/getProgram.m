@@ -13,7 +13,7 @@ function [program] = getProgram()
     program.studInt = zeros(program.numStuds, program.numComps);
     % Company-student interests matrix
     program.compInt = zeros(program.numComps, program.numStuds);
-    % Company-student viability matrix (based on language requirements)
+    % Company-student viability matrix
     program.compVia = zeros(program.numComps, program.numStuds);
 
     % Company-day availability matrix

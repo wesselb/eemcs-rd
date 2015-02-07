@@ -1,8 +1,8 @@
 program.compVia = ones(program.numComps, program.numStuds);
 
 % Companies A (1), B (2), C (3) and D (4)
-% A: three students on day 1, three students on day 2
-program.compDay(1,1:2) = 3;
+% A: one students on day 1, one students on day 2
+program.compDay(1,1:2) = 1;
 
 % B: two students on day 2
 program.compDay(2,2) = 2;
@@ -10,8 +10,8 @@ program.compDay(2,2) = 2;
 % C: two students on day 3
 program.compDay(3,3) = 2;
 
-% D: three students on day 2, three students on day 3
-program.compDay(4,2:3) = 3;
+% D: one students on day 2, one students on day 3
+program.compDay(4,2:3) = 1;
 
 % Total availability: 8 spots
 
