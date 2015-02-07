@@ -41,12 +41,12 @@ function [assignment] = assign(program, assVia, verbose)
 
     % Sparse adjacency matrix for the required max-flow calculation
     info('Allocate memory', verbose);
-    adj = zeros(numNodes, numNodes);
+    adj = sparse(zeros(numNodes, numNodes));
 
     % Source to student edges
     info('Generate adjacency matrix', verbose);
     for i = 1:program.numStuds
-        adj(sourceNode, getStudNode(i)) = program.maxStudAsses;
+        adj(sourceNode, getStudNode(i)) = program.studAss(i);
     end
 
     % Student to student per company edges
@@ -87,14 +87,10 @@ function [assignment] = assign(program, assVia, verbose)
         end
     end
 
-    % Convert matrix to sparse representation
-    info('Convert to sparse representation', verbose);
-    adj = sparse(adj);
-
     % Calculate max-flow
-    info('Calculate max-flow (pre-push algorithm)', verbose);
+    info('Calculate max-flow', verbose);
     [valFlow, adjFlow] = graphmaxflow(adj, sourceNode, sinkNode,...
-        'Method', 'Goldberg');
+        'Method', 'edmonds');
     info(['Found ' num2str(round(valFlow)) ' matches'], verbose);
 
     % Save assignments
@@ -102,7 +98,7 @@ function [assignment] = assign(program, assVia, verbose)
         for j = 1:program.numComps
             for k = 1:program.numDays
                 if approxEqual(adjFlow(getStudPerCompNode(i,j),...
-                        getStudPerCompPerDayNode(i,j,k)),1)
+                        getStudPerCompPerDayNode(i,j,k)), 1)
                     assignment(i,j,k) = 1;
                 end
             end

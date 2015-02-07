@@ -1,7 +1,7 @@
 function displayPassed(message, passed)
     if passed
-        display([message ': OK']);
+        display(['TEST: ' message ': OK']);
     else
-        display([message ': failed']);
+        display(['TEST: ' message ': failed']);
     end
 end

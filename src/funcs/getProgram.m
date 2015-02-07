@@ -1,8 +1,8 @@
 function [program] = getProgram()
     % Returns the data-encapsulating object
     
-    program.numComps = 4;
-    program.numStuds = 8;
+    program.numComps = 38;
+    program.numStuds = 250;
     program.numDays = 3;
     % Maximum assignments of one student
     program.maxStudAsses = 9;
@@ -21,6 +21,9 @@ function [program] = getProgram()
     % Student-day availability matrix
     program.studDay = zeros(program.numStuds, program.numDays);
     
-    sample_data
+    % Student number assigned matrix
+    program.studAss = program.maxStudAsses*ones(program.numStuds);
+    
+    random_data
 end
 

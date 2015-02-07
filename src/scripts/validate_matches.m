@@ -72,31 +72,42 @@ end
 
 
 % Percentage perfect matches
-percentage = round(100*sum(sum(compDayPerfectMatches))/numPerfectMatches);
-display(['perfect matches assigned: '...
-    num2str(foundPerfectMatches) '/' num2str(numPerfectMatches) ' ('...
-    num2str(percentage) '%)']);
-
-% No missed perfect matches check
-misses = sum(sum(program.compDay))-foundPerfectMatches;
-displayPassed('no perfect match misses', misses == 0);
+percentage = floor(100*sum(sum(compDayPerfectMatches))/numPerfectMatches);
+if percentage < 100
+    display(['INFO: perfect matches assigned: '...
+        num2str(sum(sum(compDayPerfectMatches))) '/'...
+        num2str(numPerfectMatches) ' (' num2str(percentage) '%)']);
+end
+displayPassed('all perfect matches', percentage == 100);
 
 % No error matches check
 displayPassed('no error matches', numErrorMatches == 0);
 
 % Percentage company interest matches check
+threshold = 2;
 passed = 1;
+totalErrorRatio = 0;
+numErrorRatio = 0;
 for j = 1:program.numComps
     for k = 1:program.numDays
         diff = abs(compDayCompIntMatches(j,k) -...
             compDayStudIntMatches(j,k));
-        if diff > 1
+        if diff > threshold
             passed = 0;
+            totalErrorRatio = totalErrorRatio...
+                + abs(compDayCompIntMatches(j,k)/...
+                compDayStudIntMatches(j,k));
+            numErrorRatio = numErrorRatio + 1;
         end
     end
 end
+if numErrorRatio > 0
+    display(['INFO: threshold: ' num2str(threshold)...
+        ', average error ratio: '...
+        num2str(round(100*totalErrorRatio/numErrorRatio)/100)...
+        ' (' num2str(numErrorRatio) ')']);
+end
 displayPassed('ratio company student interest matches', passed);
-
 
 %% Maximum student assignments check
 assigned = zeros(program.numStuds);

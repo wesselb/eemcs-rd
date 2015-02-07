@@ -1,5 +1,5 @@
 % Config
-verbose = false;
+verbose = true;
 
 addpath('tools');
 addpath('scripts');
@@ -14,11 +14,8 @@ timer = startTimer('perfect matches assignment');
 perfectMatches = assign(program, assVia, verbose);
 stopTimer(timer);
 
+% Upper half
 adjustedProgram = adjustProgram(program, perfectMatches);
-
-% Split the program
-programLowerHalf = adjustedProgram;
-programLowerHalf.compDay = floor(adjustedProgram.compDay/2);
 programUpperHalf = adjustedProgram;
 programUpperHalf.compDay = ceil(adjustedProgram.compDay/2);
 
@@ -28,8 +25,11 @@ timer = startTimer('company interest matches assignment');
 companyMatches = assign(programUpperHalf, assVia, verbose);
 stopTimer(timer);
 
+% Lower half
+programLowerHalf = adjustProgram(adjustedProgram, companyMatches);
+
 % Student interest matches
-assVia = program.compInt;
+assVia = program.studInt';
 timer = startTimer('student interest matches assignment');
 studentMatches = assign(programLowerHalf, assVia, verbose);
 stopTimer(timer);
@@ -43,6 +43,6 @@ validate_matches
 stopTimer(timer);
 
 % Display assignments
-matches_table
+printTable(program, matches)
 
 

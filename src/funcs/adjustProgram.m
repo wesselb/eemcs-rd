@@ -8,6 +8,8 @@ function [program] = adjustProgram(program, assignment)
                 if assignment(i,j,k)                  
                     % Student i cannot be matched to j any more
                     program.compVia(j,i) = 0;
+                    % Student i has one less match maximum
+                    program.studAss(i) = program.studAss(i) - 1;
                     % Company j has one less spot on day k
                     program.compDay(j,k) = program.compDay(j,k) - 1;
                 end
