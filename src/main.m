@@ -4,6 +4,7 @@ verbose = true;
 addpath('tools');
 addpath('scripts');
 addpath('funcs');
+addpath('tests');
 
 % Data-encapsulating object
 program = getProgram();
