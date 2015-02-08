@@ -25,6 +25,9 @@ stopTimer(timer);
 % Display assignments
 printTable(program, matches);
 
-% TODO: zeros(1 arg)
+% Generate schedule
+timer = startTimer('generate schedule');
+schedule = generateSchedule(program, matches);
+stopTimer(timer);
 
 

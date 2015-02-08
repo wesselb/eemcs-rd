@@ -1,7 +1,7 @@
 function maximumStudentAssignmentsTest(program, matches, verbose)
     % Maximum student assignments check
     
-    assigned = zeros(program.numStuds);
+    assigned = zeros(program.numStuds, 1);
     passed = 1;
     for i = 1:program.numStuds
         for j = 1:program.numComps

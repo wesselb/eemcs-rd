@@ -1,6 +1,7 @@
 program.numComps = 38;
 program.numStuds = 250;
 program.numDays = 3;
+program.numInters = 12;
 % Maximum assignments of one student
 program.maxStudAsses = 9;
 % Maximum assignments of a company per day

@@ -23,6 +23,7 @@ function [program] = getProgram(randomData)
     program.numDays = 3;
     program.maxStudAsses = 9;
     program.maxCompPerDayAsses = Inf;
+    program.numInters = 12;
 
     program.numStuds = size(studentData, 1);
     program.numComps = size(companyListNOI, 1);

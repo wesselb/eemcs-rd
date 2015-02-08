@@ -1,7 +1,7 @@
 function maximumCompanyPerDagAssignmentsTest(program, matches, verbose)
     % Maximum company assignments check
     
-    assigned = zeros(program.numComps,program.numDays);
+    assigned = zeros(program.numComps, program.numDays);
     passed = 1;
     for i = 1:program.numStuds
         for j = 1:program.numComps
