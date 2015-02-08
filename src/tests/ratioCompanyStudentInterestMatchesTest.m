@@ -25,8 +25,8 @@ function ratioCompanyStudentInterestMatchesTest(program, matches, verbose)
     % Largest allowable difference between the specific interest matches
     threshold = 2;
     
-    totalErrorRatio = 0;
-    numErrorRatio = 0;
+    totalDiff = 0;
+    numDiff = 0;
     
     passed = 1;
     for j = 1:program.numComps
@@ -36,19 +36,17 @@ function ratioCompanyStudentInterestMatchesTest(program, matches, verbose)
                 compDayStudIntMatches(j,k));
             if diff > threshold
                 passed = 0;
-                totalErrorRatio = totalErrorRatio...
-                    + abs(compDayCompIntMatches(j,k)/...
-                    compDayStudIntMatches(j,k));
-                numErrorRatio = numErrorRatio + 1;
+                totalDiff = totalDiff + diff;
+                numDiff = numDiff + 1;
             end
         end
     end
     
-    if numErrorRatio > 0
+    if numDiff > 0
         info(['threshold: ' num2str(threshold)...
-            ', average error ratio: '...
-            num2str(round(100*totalErrorRatio/numErrorRatio)/100)...
-            ' (' num2str(numErrorRatio) ')'], verbose);
+            ', average difference: '...
+            num2str(round(10*totalDiff/numDiff)/10)...
+            ' (' num2str(numDiff) ' instances)'], verbose);
     end
     displayPassed('ratio company student interest matches', passed);
 end

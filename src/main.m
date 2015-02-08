@@ -4,10 +4,13 @@ verbose = true;
 addpath('tools');
 addpath('scripts');
 addpath('funcs');
+addpath('funcs/db');
 addpath('tests');
 
 % Data-encapsulating object
+timer = startTimer('get data');
 program = getProgram();
+stopTimer(timer);
 
 % Find matches
 timer = startTimer('find matches');
@@ -20,6 +23,8 @@ testMatches(program, matches, verbose);
 stopTimer(timer);
 
 % Display assignments
-printTable(program, matches)
+printTable(program, matches);
+
+% TODO: zeros(1 arg)
 
 
