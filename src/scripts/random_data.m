@@ -1,5 +1,5 @@
 program.numComps = 38;
-program.numStuds = 250;
+program.numStuds = 120;
 program.numDays = 3;
 program.numInters = 12;
 % Maximum assignments of one student
@@ -22,21 +22,35 @@ program.studDay = zeros(program.numStuds, program.numDays);
 % Student number assigned matrix
 program.studAss = program.maxStudAsses*ones(program.numStuds);
 
-
 % Config
 studsPerDay = 12;
 studDayChance = 2/3;
 studIntChance = 1/3;
+compMoreDayChance = 0;%1/5;
 
 % All viable
 program.compVia = ones(program.numComps, program.numStuds);
 
 % Random
-program.compDay = ones(program.numComps, program.numDays)*studsPerDay;
 program.studDay = rand(program.numStuds,program.numDays)...
     /(1-studDayChance) > 1;
 program.studInt = rand(program.numStuds,program.numComps)...
     /(1-studIntChance) > 1;
+
+% Distribute company availability randomly
+for k = 1:program.numDays
+    places = 22;
+    prefs = randperm(program.numComps);
+    
+    for i = 1:places
+        factor = 1;
+        if rand()/(1-compMoreDayChance) > 1
+            factor = 2;
+        end
+        
+        program.compDay(prefs(i),k) = studsPerDay*factor;
+    end
+end
 
 % Distribute interests randomly
 for j = 1:program.numComps
