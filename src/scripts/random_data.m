@@ -1,5 +1,5 @@
 program.numComps = 38;
-program.numStuds = 120;
+program.numStuds = 250;
 program.numDays = 3;
 program.numInters = 12;
 % Maximum assignments of one student
@@ -26,7 +26,7 @@ program.studAss = program.maxStudAsses*ones(program.numStuds);
 studsPerDay = 12;
 studDayChance = 2/3;
 studIntChance = 1/3;
-compMoreDayChance = 0;%1/5;
+compMoreDayChance = 1/5;
 
 % All viable
 program.compVia = ones(program.numComps, program.numStuds);
@@ -39,7 +39,7 @@ program.studInt = rand(program.numStuds,program.numComps)...
 
 % Distribute company availability randomly
 for k = 1:program.numDays
-    places = 22;
+    places = 16;
     prefs = randperm(program.numComps);
     
     for i = 1:places

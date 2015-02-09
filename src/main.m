@@ -1,7 +1,9 @@
 % Config
-verbose = true;
-randomData = true;
-skipGetDataAndMatch = false;
+verbose = 1;
+randomData = 1;
+
+useCachedMatches = 1;
+useCachedSchedule = 1;
 
 addpath('tools');
 addpath('scripts');
@@ -10,8 +12,10 @@ addpath('funcs/db');
 addpath('funcs/matching');
 addpath('funcs/scheduling');
 addpath('tests');
+addpath('tests/matching');
+addpath('tests/scheduling');
 
-if ~skipGetDataAndMatch
+if ~useCachedMatches
     % Data-encapsulating object
     timer = startTimer('get data');
     program = getProgram(randomData);
@@ -31,17 +35,19 @@ stopTimer(timer);
 % Display assignments
 printTable(program, matches);
 
-% Generate schedule
-timer = startTimer('generate schedule');
-schedule = generateSchedule(program, matches, verbose);
-stopTimer(timer);
+if ~useCachedSchedule
+    % Generate schedule
+    timer = startTimer('generate schedule');
+    schedule = generateSchedule(program, matches, verbose);
+    stopTimer(timer);
+end
 
 % Display schedule
 printSchedule(program, schedule);
 
 % Validate schedule
 timer = startTimer('validate schedule');
-%testSchedule(program, matches, schedule, verbose);
+% testSchedule(program, matches, schedule, verbose);
 stopTimer(timer);
 
 % TODO's:

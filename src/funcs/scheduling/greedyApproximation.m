@@ -16,9 +16,9 @@ function [schedule, minConflicts] = greedyApproximation(program, greedyData, ver
         for j = 1:program.numComps
             if greedyData.matches(i,j,day)
                 scheduled = 0;
-                % Find first spot available        
-                for s = 1:program.numInters
-                    for b = 1:length(schedule{j,day}) 
+                % Find first spot available
+                for b = 1:length(schedule{j,day}) 
+                    for s = 1:program.numInters
                         % Okay if slot is not already used or in use
                         if ~usedSlots(s) &&...
                                 schedule{j,day}{b}(s) == 0
@@ -41,8 +41,6 @@ function [schedule, minConflicts] = greedyApproximation(program, greedyData, ver
                 end
             end
         end
-        
-        info(['Could not schedule ' num2str(minConflicts) ' student(s)'], verbose);
 
         % Check the amount of remaining solutions assuming all spots will
         % be filled
@@ -65,4 +63,7 @@ function [schedule, minConflicts] = greedyApproximation(program, greedyData, ver
             break
         end
     end
+    
+    
+    info(['Could not schedule ' num2str(minConflicts) ' student(s)'], verbose);
 end
