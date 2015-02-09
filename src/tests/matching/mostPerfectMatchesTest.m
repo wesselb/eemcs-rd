@@ -20,5 +20,5 @@ function mostPerfectMatchesTest(program, matches, verbose)
     info(['perfect matches assigned: '...
         num2str(foundPerfectMatches) '/'...
         num2str(numPerfectMatches) ' (' num2str(percentage) '%)'], verbose);
-    displayPassed('most perfect matches', percentage >= 90);
+    displayPassed('at least 95% perfect matches assigned', percentage >= 95);
 end

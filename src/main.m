@@ -2,8 +2,8 @@
 verbose = 1;
 randomData = 1;
 
-useCachedMatches = 1;
-useCachedSchedule = 1;
+useCachedMatches = 0;
+useCachedSchedule = 0;
 
 addpath('tools');
 addpath('scripts');
@@ -42,15 +42,13 @@ if ~useCachedSchedule
     stopTimer(timer);
 end
 
+% Validate schedule
+timer = startTimer('validate schedule');
+testSchedule(program, matches, schedule, verbose);
+stopTimer(timer);
+
 % Display schedule
 printSchedule(program, schedule);
 
-% Validate schedule
-timer = startTimer('validate schedule');
-% testSchedule(program, matches, schedule, verbose);
-stopTimer(timer);
-
-% TODO's:
-% - test schedule
-% - data export
-
+% Export data
+exportSchedule(program, schedule, verbose);
