@@ -42,7 +42,7 @@ function leastAverageWaitingTimeTest(program, matches, schedule, verbose)
     displayPassed('average waiting time below 2', averageWaitingTime <= 2);
     
     info(['average biggest waiting time: ' num2str(averageBiggestWaitingTime)], verbose);
-    displayPassed('average biggest waiting time below 3', averageBiggestWaitingTime <= 3);
+    displayPassed('average biggest waiting time below 2', averageBiggestWaitingTime <= 2);
     
     if verbose
         % Display table of waiting times
