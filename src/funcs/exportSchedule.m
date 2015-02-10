@@ -7,6 +7,7 @@ function exportSchedule(program, schedule, verbose)
     tables = res.Data;
     num = 1;
     while 1
+        % Check if name is available
         nameAvailable = 1;
         for i = 1:length(tables)
             if strcmp(tables{i}, ['schedule' num2str(num)])
@@ -14,6 +15,7 @@ function exportSchedule(program, schedule, verbose)
                 break
             end
         end
+        % If the name is not available, increase num
         if ~nameAvailable
             num = num+1;
         else
@@ -45,7 +47,7 @@ function exportSchedule(program, schedule, verbose)
             for b = 1:length(schedule{j,k})
                 for s = 1:program.numInters
                     stud = schedule{j,k}{b}(s);
-                    % Check if any student is scheduled
+                    % Check if a student is scheduled
                     if stud > 0
                         studID = program.studID(stud);
                         compID = program.compID(j);
