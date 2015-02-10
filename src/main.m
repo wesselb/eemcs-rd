@@ -2,8 +2,12 @@
 verbose = 1;
 randomData = 1;
 
-useCachedMatches = 0;
-useCachedSchedule = 0;
+useCachedMatches = 1;
+useCachedSchedule = 1;
+
+validation = 1;
+display = 1;
+export = 0;
 
 addpath('tools');
 addpath('scripts');
@@ -27,13 +31,17 @@ if ~useCachedMatches
     stopTimer(timer);
 end
 
-% Validate matches
-timer = startTimer('validate matches');
-testMatches(program, matches, verbose);
-stopTimer(timer);
+if validation
+    % Validate matches
+    timer = startTimer('validate matches');
+    testMatches(program, matches, verbose);
+    stopTimer(timer);
+end
 
-% Display assignments
-printTable(program, matches);
+if display
+    % Display assignments
+    printTable(program, matches);
+end
 
 if ~useCachedSchedule
     % Generate schedule
@@ -42,13 +50,21 @@ if ~useCachedSchedule
     stopTimer(timer);
 end
 
-% Validate schedule
-timer = startTimer('validate schedule');
-testSchedule(program, matches, schedule, verbose);
-stopTimer(timer);
+if validation
+    % Validate schedule
+    timer = startTimer('validate schedule');
+    testSchedule(program, matches, schedule, verbose);
+    stopTimer(timer);
+end
 
-% Display schedule
-printSchedule(program, schedule);
+if display
+    % Display schedule
+    printSchedule(program, schedule);
+end
 
-% Export data
-exportSchedule(program, schedule, verbose);
+if export
+    % Export data
+    timer = startTimer('export schedule');
+    exportSchedule(program, schedule, verbose);
+    stopTimer(timer);
+end

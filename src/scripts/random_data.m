@@ -24,8 +24,8 @@ program.studAss = program.maxStudAsses*ones(program.numStuds);
 
 % Config
 studsPerDay = 12;
-studDayChance = 2/3;
-studIntChance = 1/3;
+studDayChance = 4/5;
+studIntChance = 1/2;
 compMoreDayChance = 1/5;
 
 % All viable
@@ -61,3 +61,7 @@ for j = 1:program.numComps
         program.compInt(j,prefs(i)) = 1;
     end
 end
+
+% Set IDs to i's
+program.studID = 1:program.numStuds;
+program.compID = 1:program.numComps;

@@ -15,6 +15,7 @@ function [program] = getProgram(randomData)
     conn = getConnection();
 
     studentData = getStudentData(conn);
+%     companyData = getCompanyData(conn);
     companyAvailabilityData = getCompanyAvailabilityData(conn);
     companyListNOI = getCompanyListNOI(conn);
     companyIntData = getCompanyIntData(conn);
@@ -49,10 +50,12 @@ function [program] = getProgram(randomData)
 
     % Parse all data
     program = setCompanyIDs(program, companyListNOI);
+%     program = setCompanyIDs(program, companyData);
     program = parseStudentData(program, studentData);
     program = parseCompanyAvailabilityData(program, companyAvailabilityData);
     program = parseCompanyListNOI(program, companyListNOI);
     program = parseCompanyIntData(program, companyIntData);
+%     program = parseCompanyData(pogram, companyData);
 
     close(conn);
 end
