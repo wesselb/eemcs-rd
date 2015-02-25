@@ -5,7 +5,7 @@ function printSchedule(program, schedule)
         % Print companies and bins
         for j = 1:program.numComps
             for b = 1:length(schedule{j,k})
-                fprintf('%-2.d (%1.i) | ', j, b);
+                fprintf('%-2.d (%1.i) | ', program.compID(j), b);
             end
         end
         fprintf('\n');
@@ -28,7 +28,7 @@ function printSchedule(program, schedule)
                     if i > length(bin) || bin(i) == 0
                         fprintf('-      | ');
                     else
-                        fprintf('%-6.d | ', bin(i));
+                        fprintf('%-6.d | ', program.studID(bin(i)));
                     end                   
                 end
             end

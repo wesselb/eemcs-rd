@@ -7,24 +7,32 @@ function [matches] = match(program, verbose)
     perfectMatches = assign(program, assVia, verbose);
 
     % Upper half
-    adjustedProgram = adjustProgram(program, perfectMatches);
-    programUpperHalf = adjustedProgram;
-    programUpperHalf.compDay = ceil(adjustedProgram.compDay/2);
+    programLeft = adjustProgram(program, perfectMatches);
+    programUpperHalf = programLeft;
+    programUpperHalf.compDay = ceil(programLeft.compDay/2);
 
     % Company interest matches
     assVia = program.compInt;
     info('Find company interest matches', verbose);
     companyMatches = assign(programUpperHalf, assVia, verbose);
 
-    % Lower half
-    programLowerHalf = adjustProgram(adjustedProgram, companyMatches);
+    % Adjust program
+    programLeft = adjustProgram(programLeft, companyMatches);
 
     % Student interest matches
     assVia = program.studInt';
     info('Find student interest matches', verbose);
-    studentMatches = assign(programLowerHalf, assVia, verbose);
+    studentMatches = assign(programLeft, assVia, verbose);
+    
+    % Adjust program
+    programLeft = adjustProgram(programLeft, studentMatches);
+    
+    % Assign now left spots to company interest
+    assVia = program.compInt;
+    info('Assign left spots to company interest matches', verbose);
+    companyMatchesLeft = assign(programLeft, assVia, verbose);
 
     % Merge all matches
-    matches = perfectMatches + companyMatches + studentMatches;
+    matches = perfectMatches + companyMatches + studentMatches + companyMatchesLeft;
 end
 

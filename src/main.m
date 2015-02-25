@@ -2,8 +2,8 @@
 verbose = 1;
 randomData = 1;
 
-useCachedMatches = 1;
-useCachedSchedule = 1;
+useCachedMatches = 0;
+useCachedSchedule = 0;
 
 validation = 1;
 display = 1;

@@ -9,6 +9,6 @@ function allSpotsAssignedTest(program, matches, verbose)
             end
         end
     end
-    displayPassed('complete assignment', passed);
+    displayPassed('all spots assigned', passed);
 end
 

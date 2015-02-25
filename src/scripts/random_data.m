@@ -1,56 +1,47 @@
-program.numComps = 38;
-program.numStuds = 250;
-program.numDays = 3;
+% Pre-defined data
 program.numInters = 12;
-% Maximum assignments of one student
 program.maxStudAsses = 9;
-% Maximum assignments of a company per day
 program.maxCompPerDayAsses = Inf;
+program.numDays = 3;
 
-% Student-company interests matrix
-program.studInt = zeros(program.numStuds, program.numComps);
-% Company-student interests matrix
-program.compInt = zeros(program.numComps, program.numStuds);
-% Company-student viability matrix
-program.compVia = zeros(program.numComps, program.numStuds);
+sim_data
 
-% Company-day availability matrix
-program.compDay = zeros(program.numComps, program.numDays);
-% Student-day availability matrix
-program.studDay = zeros(program.numStuds, program.numDays);
-
-% Student number assigned matrix
+% Pre-process data
+[studID, studIDTab, ~] = unique(dataStuds(:,1));
+[compID, compIDTab, ~] = unique(dataComps(:,1));
+program.studID = studID;
+program.compID = compID;
+program.numStuds = length(studID);
+program.numComps = length(compID);
 program.studAss = program.maxStudAsses*ones(program.numStuds);
 
-% Config
-studsPerDay = 12;
-studDayChance = 4/5;
-studIntChance = 1/2;
-compMoreDayChance = 1/5;
+% Initialize
+program.studInt = zeros(program.numStuds, program.numComps);
+program.compInt = zeros(program.numComps, program.numStuds);
+program.compVia = zeros(program.numComps, program.numStuds);
+program.compDay = zeros(program.numComps, program.numDays);
+program.studDay = zeros(program.numStuds, program.numDays);
 
-% All viable
-program.compVia = ones(program.numComps, program.numStuds);
-
-% Random
-program.studDay = rand(program.numStuds,program.numDays)...
-    /(1-studDayChance) > 1;
-program.studInt = rand(program.numStuds,program.numComps)...
-    /(1-studIntChance) > 1;
-
-% Distribute company availability randomly
-for k = 1:program.numDays
-    places = 16;
-    prefs = randperm(program.numComps);
+% Fill availability
+for i = 1:size(dataStuds, 1)
+    ID = dataStuds(i,1);
+    day = dataStuds(i,2);
     
-    for i = 1:places
-        factor = 1;
-        if rand()/(1-compMoreDayChance) > 1
-            factor = 2;
-        end
-        
-        program.compDay(prefs(i),k) = studsPerDay*factor;
-    end
+    studNum = find(studID == ID);
+    program.studDay(studNum, day) = 1;
 end
+for i = 1:size(dataComps, 1)
+    ID = dataComps(i,1);
+    day = dataComps(i,2);
+    numParInters = dataComps(i,3);
+    
+    compNum = find(compID == ID);
+    program.compDay(compNum, day) = program.numInters*numParInters;
+end
+program.studDay = ones(program.numStuds, program.numDays);
+
+% Set all to viable
+program.compVia = ones(program.numComps, program.numStuds);
 
 % Distribute interests randomly
 for j = 1:program.numComps
@@ -62,6 +53,21 @@ for j = 1:program.numComps
     end
 end
 
-% Set IDs to i's
-program.studID = 1:program.numStuds;
-program.compID = 1:program.numComps;
+ints = [];
+for j = 1:program.numComps
+    numLikes = dataComps(compIDTab(j), 4);
+    for i = 1:numLikes
+        ints = [ints j];
+    end
+end
+ints = ints(randperm(length(ints))); % Just a shuffle (MATLAB...)
+
+curStud = 1;
+for int = ints
+    program.studInt(curStud, int) = 1;
+    
+    curStud = curStud+1;
+    if curStud > program.numStuds
+        curStud = 1;
+    end
+end

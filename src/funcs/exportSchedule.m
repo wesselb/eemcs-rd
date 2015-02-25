@@ -23,6 +23,7 @@ function exportSchedule(program, schedule, verbose)
         end
     end
     tableName = ['schedule' num2str(num)];
+    info(['Table name: ' tableName], verbose);
     
     % Create table
     query = [...
@@ -34,7 +35,8 @@ function exportSchedule(program, schedule, verbose)
             'slot int(2) unsigned, '...
             'interviewer int(1) unsigned '...
         ')'];
-    exec(conn, query);
+    res = exec(conn, query);
+    info(['Table creation message: ' res.Message], verbose);
 
     % Insert data
     query = [...
@@ -65,7 +67,8 @@ function exportSchedule(program, schedule, verbose)
     
     % Remove last comma and execute insertion
     query = query(1:(length(query)-1));
-    exec(conn, query);
+    res = exec(conn, query);
+    info(['Data insertion message: ' res.Message], verbose);
     
     close(conn);
 end

@@ -39,7 +39,7 @@ function leastAverageWaitingTimeTest(program, matches, schedule, verbose)
     averageBiggestWaitingTime = round(100*averageBiggestWaitingTime/num)/100;
     
     info(['average waiting time: ' num2str(averageWaitingTime)], verbose);
-    displayPassed('average waiting time below 2', averageWaitingTime <= 2);
+    displayPassed('average waiting time below 1.5', averageWaitingTime <= 1.5);
     
     info(['average biggest waiting time: ' num2str(averageBiggestWaitingTime)], verbose);
     displayPassed('average biggest waiting time below 2', averageBiggestWaitingTime <= 2);
