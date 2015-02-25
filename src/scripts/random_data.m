@@ -38,7 +38,6 @@ for i = 1:size(dataComps, 1)
     compNum = find(compID == ID);
     program.compDay(compNum, day) = program.numInters*numParInters;
 end
-program.studDay = ones(program.numStuds, program.numDays);
 
 % Set all to viable
 program.compVia = ones(program.numComps, program.numStuds);
