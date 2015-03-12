@@ -1,4 +1,4 @@
-function [assignment] = assign(program, assVia, verbose)
+function [assignment] = assign(program, assVia, verbose, nationalityViability)
     % Reduction to max-flow for bipartite matching.
     
     % Default value for verbose
@@ -52,7 +52,7 @@ function [assignment] = assign(program, assVia, verbose)
     % Student to student per company edges
     for i = 1:program.numStuds
         for j = 1:program.numComps
-            if program.compVia(j, i) && assVia(j,i)
+            if (program.natVia(j, i) || ~nationalityViability) && program.compVia(j,i) && assVia(j,i)
                 adj(getStudNode(i), getStudPerCompNode(i,j)) = 1;
             end
         end

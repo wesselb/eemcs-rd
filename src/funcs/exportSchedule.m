@@ -1,28 +1,22 @@
-function exportSchedule(program, schedule, verbose)
+function [scheduleNum] = exportSchedule(program, schedule, verbose)
     conn = getConnection();
     
     % Find table name
     res = exec(conn, 'show tables');
     res = fetch(res);
     tables = res.Data;
-    num = 1;
-    while 1
-        % Check if name is available
-        nameAvailable = 1;
-        for i = 1:length(tables)
-            if strcmp(tables{i}, ['schedule' num2str(num)])
-                nameAvailable = 0;
-                break
+    highestNum = 1;
+    for i = 1:length(tables)
+        if strncmp(tables{i}, 'schedule', 8)
+            num = str2num(tables{i}(9:length(tables{i})));
+            
+            if num >= highestNum
+                highestNum = num + 1;
             end
         end
-        % If the name is not available, increase num
-        if ~nameAvailable
-            num = num+1;
-        else
-            break
-        end
     end
-    tableName = ['schedule' num2str(num)];
+    scheduleNum = highestNum;
+    tableName = ['schedule' num2str(highestNum)];
     info(['Table name: ' tableName], verbose);
     
     % Create table

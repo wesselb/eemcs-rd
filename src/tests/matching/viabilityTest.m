@@ -5,6 +5,7 @@ function viabilityTest(program, matches, verbose)
     for i = 1:program.numStuds
         for j = 1:program.numComps
             for k = 1:program.numDays
+                % Viability
                 if matches(i,j,k) && ~program.compVia(j,i)
                     passed = 0;
                 end

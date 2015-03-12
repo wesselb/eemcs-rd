@@ -8,5 +8,5 @@ function testMatches(program, matches, verbose)
     noErrorMatchesTest(program, matches, verbose);
     ratioCompanyStudentInterestMatchesTest(program, matches, verbose);
     maximumStudentAssignmentsTest(program, matches, verbose);
-    maximumCompanyPerDagAssignmentsTest(program, matches, verbose);
+    maximumCompanyPerDayAssignmentsTest(program, matches, verbose);
 end

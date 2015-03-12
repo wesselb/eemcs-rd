@@ -5,7 +5,7 @@ function printSchedule(program, schedule)
         % Print companies and bins
         for j = 1:program.numComps
             for b = 1:length(schedule{j,k})
-                fprintf('%-2.d (%1.i) | ', program.compID(j), b);
+                fprintf('%-3.d (%1.i) | ', program.compID(j), b);
             end
         end
         fprintf('\n');
@@ -13,7 +13,7 @@ function printSchedule(program, schedule)
         % Print horizontal separator
         for j = 1:program.numComps
             for b = 1:length(schedule{j,k})
-                fprintf('------ | ');
+                fprintf('------- | ');
             end
         end
         fprintf('\n');
@@ -26,9 +26,9 @@ function printSchedule(program, schedule)
                     % Check if the schedule has ended or no student is
                     % scheduled
                     if i > length(bin) || bin(i) == 0
-                        fprintf('-      | ');
+                        fprintf('-       | ');
                     else
-                        fprintf('%-6.d | ', program.studID(bin(i)));
+                        fprintf('%-7.d | ', program.studID(bin(i)));
                     end                   
                 end
             end

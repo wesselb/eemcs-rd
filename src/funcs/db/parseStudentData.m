@@ -6,6 +6,7 @@ function [program] = parseStudentData(program, studentData)
         % Field 4: availability day 1
         % Field 5: availability day 2
         % Field 6: availability day 3
+        % Field 7: nationality
 
         % Save ID
         program.studID(i) = studentData{i, 2};
@@ -21,5 +22,8 @@ function [program] = parseStudentData(program, studentData)
             compID = str2num(prefs{k});
             program.studInt(i, getCompanyIndex(program, compID)) = 1;
         end
+        
+        % Save nationality
+        program.studNat(i) = studentData{i, 7};
     end
 end

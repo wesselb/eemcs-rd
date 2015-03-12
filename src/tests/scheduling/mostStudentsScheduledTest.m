@@ -1,5 +1,5 @@
 function mostStudentsScheduledTest(program, matches, schedule, verbose)
-    % Check if most matched students are scheduled
+    % Check if the waiting list is in the correct order
 
     misses = 0;
     hits = 0;

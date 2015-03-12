@@ -1,13 +1,13 @@
 % Config
 verbose = 1;
-randomData = 1;
+randomData = 0;
 
 useCachedMatches = 0;
 useCachedSchedule = 0;
 
 validation = 1;
 display = 1;
-export = 0;
+export = 1;
 
 addpath('tools');
 addpath('scripts');
@@ -18,6 +18,7 @@ addpath('funcs/scheduling');
 addpath('tests');
 addpath('tests/matching');
 addpath('tests/scheduling');
+addpath('tests/waitingList');
 
 if ~useCachedMatches
     % Data-encapsulating object
@@ -47,6 +48,7 @@ if ~useCachedSchedule
     % Generate schedule
     timer = startTimer('generate schedule');
     schedule = generateSchedule(program, matches, verbose);
+    waitingList = generateWaitingList(program, schedule, verbose);
     stopTimer(timer);
 end
 
@@ -54,17 +56,20 @@ if validation
     % Validate schedule
     timer = startTimer('validate schedule');
     testSchedule(program, matches, schedule, verbose);
+    testWaitingList(program, schedule, waitingList, verbose);
     stopTimer(timer);
 end
 
 if display
     % Display schedule
     printSchedule(program, schedule);
+    printWaitingList(program, waitingList);
 end
 
 if export
     % Export data
     timer = startTimer('export schedule');
-    exportSchedule(program, schedule, verbose);
+    scheduleNum = exportSchedule(program, schedule, verbose);
+    exportWaitingList(program, waitingList, scheduleNum, verbose);
     stopTimer(timer);
 end

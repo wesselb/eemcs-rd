@@ -15,19 +15,17 @@ function [program] = getProgram(randomData)
     conn = getConnection();
 
     studentData = getStudentData(conn);
-%     companyData = getCompanyData(conn);
-    companyAvailabilityData = getCompanyAvailabilityData(conn);
-    companyListNOI = getCompanyListNOI(conn);
-    companyIntData = getCompanyIntData(conn);
+    companyData = getCompanyData(conn);
 
     program = struct;
     program.numDays = 3;
     program.maxStudAsses = 9;
     program.maxCompPerDayAsses = Inf;
     program.numInters = 12;
+    program.maxWaitingList = 20;
 
     program.numStuds = size(studentData, 1);
-    program.numComps = size(companyListNOI, 1);
+    program.numComps = size(companyData, 1);
 
     % Student-company interests matrix
     program.studInt = zeros(program.numStuds, program.numComps);
@@ -38,6 +36,13 @@ function [program] = getProgram(randomData)
     program.compDay = zeros(program.numComps, program.numDays);
     % Student-day availability matrix
     program.studDay = zeros(program.numStuds, program.numDays);
+    
+    % Student nationality matrix
+    program.studNat = ones(program.numStuds, 1);
+    % Company nationality matrix
+    program.compNat = ones(program.numComps, 1);
+    % Company-student nationality viability matrix
+    program.natVia = ones(program.numComps, program.numStuds);
 
     % Company-student viability matrix
     program.compVia = ones(program.numComps, program.numStuds);
@@ -49,13 +54,10 @@ function [program] = getProgram(randomData)
     program.compID = zeros(program.numComps, 1);
 
     % Parse all data
-    program = setCompanyIDs(program, companyListNOI);
-%     program = setCompanyIDs(program, companyData);
+    program = setCompanyIDs(program, companyData);
     program = parseStudentData(program, studentData);
-    program = parseCompanyAvailabilityData(program, companyAvailabilityData);
-    program = parseCompanyListNOI(program, companyListNOI);
-    program = parseCompanyIntData(program, companyIntData);
-%     program = parseCompanyData(pogram, companyData);
+    program = parseCompanyData(program, companyData);
+    program = parseNationalities(program);
 
     close(conn);
 end

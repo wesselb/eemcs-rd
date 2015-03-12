@@ -1,4 +1,4 @@
-function maximumCompanyPerDagAssignmentsTest(program, matches, verbose)
+function maximumCompanyPerDayAssignmentsTest(program, matches, verbose)
     % Maximum company assignments check
     
     assigned = zeros(program.numComps, program.numDays);
