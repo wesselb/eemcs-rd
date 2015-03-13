@@ -8,7 +8,7 @@ function [program] = getProgram(randomData)
     
     % Check if random data has to be generated
     if randomData
-        random_data
+        load_random_data
         return
     end
     
@@ -22,7 +22,7 @@ function [program] = getProgram(randomData)
     program.maxStudAsses = 9;
     program.maxCompPerDayAsses = Inf;
     program.numInters = 12;
-    program.maxWaitingList = 20;
+    program.maxWaitingList = 10;
 
     program.numStuds = size(studentData, 1);
     program.numComps = size(companyData, 1);
@@ -40,7 +40,7 @@ function [program] = getProgram(randomData)
     % Student nationality matrix
     program.studNat = ones(program.numStuds, 1);
     % Company nationality matrix
-    program.compNat = ones(program.numComps, 1);
+    program.compNat = cell(program.numComps, 1);
     % Company-student nationality viability matrix
     program.natVia = ones(program.numComps, program.numStuds);
 
@@ -52,6 +52,8 @@ function [program] = getProgram(randomData)
     program.studID = zeros(program.numStuds, 1);
     % Company ID matrix
     program.compID = zeros(program.numComps, 1);
+    % Student phone matrix
+    program.studTel = cell(program.numStuds, 1);
 
     % Parse all data
     program = setCompanyIDs(program, companyData);

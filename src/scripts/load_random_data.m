@@ -4,7 +4,7 @@ program.maxStudAsses = 9;
 program.maxCompPerDayAsses = Inf;
 program.numDays = 3;
 
-sim_data
+load_sim_data
 
 % Pre-process data
 [studID, studIDTab, ~] = unique(dataStuds(:,1));

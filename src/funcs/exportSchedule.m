@@ -1,4 +1,6 @@
 function [scheduleNum] = exportSchedule(program, schedule, verbose)
+    % Export the schedule to a MySQL database
+
     conn = getConnection();
     
     % Find table name
@@ -33,7 +35,7 @@ function [scheduleNum] = exportSchedule(program, schedule, verbose)
     info(['Table creation message: ' res.Message], verbose);
 
     % Insert data
-    query = [...
+    query = [
         'insert into ' tableName ' '...
         '(student_uid, company_uid, day, slot, interviewer) '...
         'values '];
@@ -61,6 +63,7 @@ function [scheduleNum] = exportSchedule(program, schedule, verbose)
     
     % Remove last comma and execute insertion
     query = query(1:(length(query)-1));
+    exec(conn, 'set names utf8');
     res = exec(conn, query);
     info(['Data insertion message: ' res.Message], verbose);
     

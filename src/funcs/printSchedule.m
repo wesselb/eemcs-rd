@@ -1,4 +1,6 @@
 function printSchedule(program, schedule)
+    % Print a schedule
+
     for k = 1:program.numDays
         fprintf('DAY %d:\n', k);
         

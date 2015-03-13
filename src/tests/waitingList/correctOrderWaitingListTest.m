@@ -17,12 +17,15 @@ function correctOrderWaitingListTest(program, schedule, waitingList, verbose)
         end
     end
     
+    % The amount of times a student is scheduled should be ascending
     passed = 1;
-    for j = 1:program.numComps
-        if length(waitingList{j}) > 1
-            for i = 1:(length(waitingList{j})-1)
-                if studScheduled(waitingList{j}(i)) > studScheduled(waitingList{j}(i+1))
-                    passed = 0;
+    for k = 1:program.numDays
+        for j = 1:program.numComps
+            if length(waitingList{j, k}) > 1
+                for i = 1:(length(waitingList{j, k})-1)
+                    if studScheduled(waitingList{j, k}(i)) > studScheduled(waitingList{j, k}(i+1))
+                        passed = 0;
+                    end
                 end
             end
         end

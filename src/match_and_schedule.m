@@ -2,12 +2,12 @@
 verbose = 1;
 randomData = 0;
 
-useCachedMatches = 0;
-useCachedSchedule = 0;
+useCachedMatches = 1;
+useCachedSchedule = 1;
 
 validation = 1;
 display = 1;
-export = 1;
+export = 0;
 
 addpath('tools');
 addpath('scripts');
@@ -15,6 +15,7 @@ addpath('funcs');
 addpath('funcs/db');
 addpath('funcs/matching');
 addpath('funcs/scheduling');
+addpath('funcs/generate');
 addpath('tests');
 addpath('tests/matching');
 addpath('tests/scheduling');

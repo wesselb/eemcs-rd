@@ -1,4 +1,6 @@
 function printTable(program, matches)
+    % Print a table of all matches
+
     % Calculate line width
     lineWidth = max(max(program.compDay))...
         * (floor(log10(program.numStuds)) + 2);

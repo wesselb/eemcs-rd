@@ -1,4 +1,6 @@
 function [conn] = getConnection()
+    % Get a MySQL connection
+    
     addpath('../../../../private/Connections');
     stevemcawesome
     

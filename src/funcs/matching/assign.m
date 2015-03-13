@@ -1,5 +1,5 @@
 function [assignment] = assign(program, assVia, verbose, nationalityViability)
-    % Reduction to max-flow for bipartite matching.
+    % Reduction to max-flow for bipartite matching
     
     % Default value for verbose
     if nargin == 2

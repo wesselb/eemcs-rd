@@ -7,6 +7,8 @@ function [program] = parseStudentData(program, studentData)
         % Field 5: availability day 2
         % Field 6: availability day 3
         % Field 7: nationality
+        % Field 8: name
+        % Field 9: phone
 
         % Save ID
         program.studID(i) = studentData{i, 2};
@@ -25,5 +27,11 @@ function [program] = parseStudentData(program, studentData)
         
         % Save nationality
         program.studNat(i) = studentData{i, 7};
+        
+        % Save name
+        program.studName{i} = studentData{i, 8};
+        
+        % Save phone
+        program.studTel{i} = studentData{i, 9};
     end
 end
