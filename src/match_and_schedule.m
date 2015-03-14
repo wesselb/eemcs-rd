@@ -2,12 +2,12 @@
 verbose = 1;
 randomData = 0;
 
-useCachedMatches = 1;
-useCachedSchedule = 1;
+useCachedMatches = 0;
+useCachedSchedule = 0;
 validation = 1;
 inject = 1;
 display = 1;
-export = 0;
+export = 1;
 
 addpath('tools');
 addpath('scripts');
@@ -64,28 +64,28 @@ end
 if inject
     % Inject rules
     timer = startTimer('inject rules');
-    scheduleInjected = injectRules(program, schedule);
+    schedule = injectRules(program, schedule);
     stopTimer(timer);
 end
 
 if validation
     % Validate schedule
     timer = startTimer('validate schedule after injection');
-    testSchedule(program, matches, scheduleInjected, verbose);
-    testWaitingList(program, scheduleInjected, waitingList, verbose);
+    testSchedule(program, matches, schedule, verbose);
+    testWaitingList(program, schedule, waitingList, verbose);
     stopTimer(timer);
 end
 
 if display
     % Display schedule
-    printSchedule(program, scheduleInjected);
+    printSchedule(program, schedule);
     printWaitingList(program, waitingList);
 end
 
 if export
     % Export data
     timer = startTimer('export schedule');
-    scheduleNum = exportSchedule(program, scheduleInjected, verbose);
+    scheduleNum = exportSchedule(program, schedule, verbose);
     exportWaitingList(program, waitingList, scheduleNum, verbose);
     stopTimer(timer);
 end
