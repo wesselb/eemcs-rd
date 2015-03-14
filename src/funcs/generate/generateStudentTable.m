@@ -36,7 +36,7 @@ function generateStudentTable(fh, program, schedule, i)
                         if loc == 0
                             error('Unknown location');
                         else
-                            fprintf(fh, '(zaal %d)', loc);
+                            fprintf(fh, '(room %d)', loc);
                         end
                     end
                 end
@@ -69,6 +69,6 @@ function generateStudentTable(fh, program, schedule, i)
     
     % Zaal overview
     for z = 1:length(locsDesc)
-        fprintf(fh, 'Zaal %d: %s \\\\ \n', z, locsDesc{z});
+        fprintf(fh, 'Room %d: %s \\\\ \n', z, locsDesc{z});
     end
 end

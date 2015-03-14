@@ -83,8 +83,28 @@ for i = 1:program.numStuds
         end
     end
 end
-                
-               
-                          
 
+%% Amount scheduled
+amountScheduled = 0;
+amount = zeros(program.numStuds, 1);
+for j = 1:program.numComps
+    for k = 1:program.numDays
+        for b = 1:length(schedule{j,k})
+            for s = 1:program.numInters
+                if schedule{j,k}{b}(s) >0
+                    amountScheduled = amountScheduled + 1;
+                end
+            end
+        end
+    end
+end
+display(['Amount scheduled: ' num2str(amountScheduled)]);
 
+%% Students with zero company interests
+display 'Students with zero company interests:'
+for i = 1:program.numStuds
+    if sum(program.studInt(i,:)) == 0
+        fprintf('%s (%d)\n',  program.studName{i}, program.studID(i));
+    end
+end
+    

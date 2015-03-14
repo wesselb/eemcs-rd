@@ -4,8 +4,8 @@ randomData = 0;
 
 useCachedMatches = 1;
 useCachedSchedule = 1;
-
 validation = 1;
+inject = 1;
 display = 1;
 export = 0;
 
@@ -61,16 +61,31 @@ if validation
     stopTimer(timer);
 end
 
+if inject
+    % Inject rules
+    timer = startTimer('inject rules');
+    scheduleInjected = injectRules(program, schedule);
+    stopTimer(timer);
+end
+
+if validation
+    % Validate schedule
+    timer = startTimer('validate schedule after injection');
+    testSchedule(program, matches, scheduleInjected, verbose);
+    testWaitingList(program, scheduleInjected, waitingList, verbose);
+    stopTimer(timer);
+end
+
 if display
     % Display schedule
-    printSchedule(program, schedule);
+    printSchedule(program, scheduleInjected);
     printWaitingList(program, waitingList);
 end
 
 if export
     % Export data
     timer = startTimer('export schedule');
-    scheduleNum = exportSchedule(program, schedule, verbose);
+    scheduleNum = exportSchedule(program, scheduleInjected, verbose);
     exportWaitingList(program, waitingList, scheduleNum, verbose);
     stopTimer(timer);
 end
