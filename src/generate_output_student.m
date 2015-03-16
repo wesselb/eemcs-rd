@@ -1,6 +1,8 @@
 % Automatically generate all students' schedules
 
 for i = 1:program.numStuds
+    disp(['Generate output student: ' num2str(i) '/' num2str(program.numStuds)]);
+    
     fh = fopen(['../output/doc-stud-' num2str(program.studID(i)) '.tex'], 'w');
 
     content = [...
@@ -35,14 +37,14 @@ for i = 1:program.numStuds
      ];
     fprintf(fh, content);
     
-    generateStudentTable(fh, program, schedule, i);
+    generateStudentTable(fh, program, scheduleInjected, i);
     fprintf(fh, '\\end{document}\n');
 
     fclose(fh);
 
     cd ../output
-    system(['pdflatex doc-stud-' num2str(program.studID(i)) '.tex']);
-    system(['pdflatex doc-stud-' num2str(program.studID(i)) '.tex']);
-    system(['mv doc-stud-' num2str(program.studID(i)) '.pdf pdf-students/' num2str(program.studID(i)) '.pdf']);
+    [~,~] = system(['pdflatex doc-stud-' num2str(program.studID(i)) '.tex']);
+    [~,~] = system(['pdflatex doc-stud-' num2str(program.studID(i)) '.tex']);
+    [~,~] = system(['mv doc-stud-' num2str(program.studID(i)) '.pdf pdf-students/' num2str(program.studID(i)) '.pdf']);
     cd ../src
 end

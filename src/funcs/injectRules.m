@@ -18,10 +18,10 @@ function [scheduleInjected] = injectRules(program, schedule)
         if isempty(getCompanyIndex(program, compID))
             error(['Incorrect company for rule ' num2str(r)]);
         end
-        if isempty(getStudentIndex(program, studOld))
+        if isempty(getStudentIndex(program, studOld)) && studOld ~= 0
             error(['Incorrect old student for rule ' num2str(r)]);
         end
-        if isempty(getStudentIndex(program, studNew))
+        if isempty(getStudentIndex(program, studNew)) && studNew ~= 0
             error(['Incorrect new student for rule ' num2str(r)]);
         end
         if slot <= 0 || slot > program.numInters
@@ -30,11 +30,16 @@ function [scheduleInjected] = injectRules(program, schedule)
         if compInt <= 0 || compInt > length(schedule{getCompanyIndex(program, compID), day})
             error(['Incorrect interviewer for rule ' num2str(r)]);
         end
-        if schedule{getCompanyIndex(program, compID), day}{compInt}(slot) ~= getStudentIndex(program, studOld)
-            error(['Schedule not compatible for rule ' num2str(r)]);
+        if (studOld == 0 && schedule{getCompanyIndex(program, compID), day}{compInt}(slot) ~= 0) ||...
+            (studOld > 0 && schedule{getCompanyIndex(program, compID), day}{compInt}(slot) ~= getStudentIndex(program, studOld))
+                error(['Schedule not compatible for rule ' num2str(r)])
         end
         
-        schedule{getCompanyIndex(program, compID), day}{compInt}(slot) = getStudentIndex(program, studNew);
+        if studNew == 0
+            schedule{getCompanyIndex(program, compID), day}{compInt}(slot) = 0;
+        else
+            schedule{getCompanyIndex(program, compID), day}{compInt}(slot) = getStudentIndex(program, studNew);
+        end
     end
     
     scheduleInjected = schedule;

@@ -19,6 +19,7 @@ function leastAverageWaitingTimeTest(program, matches, schedule, verbose)
                 end
             end
             waits = diff(sort(slots));
+            waits = waits(waits > 0);
             if length(slots) > 1
                 % Find biggest waiting time
                 averageBiggestWaitingTime = averageBiggestWaitingTime...

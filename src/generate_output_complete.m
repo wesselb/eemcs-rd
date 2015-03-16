@@ -38,9 +38,9 @@ for j = 1:program.numComps
     compID = program.compID(j);
     fprintf(fh,'\\subsection{%s} \n', program.compName{j});
     fprintf(fh,'\\subsubsection{Schedule} \n');
-    generateCompanyTables(fh, program, schedule, j);
+    generateCompanyTables(fh, program, scheduleInjected, j);
     fprintf(fh,'\\subsubsection{Waiting list} \n');
-    generateWaitingListTables(fh, program, schedule, waitingList, j);
+    generateWaitingListTables(fh, program, scheduleInjected, waitingList, j);
 end
 
 fprintf(fh, '\\end{document}\n');
@@ -48,7 +48,7 @@ fprintf(fh, '\\end{document}\n');
 fclose(fh);
 
 cd ../output
-system('pdflatex schedule-complete.tex');
-system('pdflatex schedule-complete.tex');
-system('mv schedule-complete.pdf pdf-comps/schedule-complete.pdf');
+[~,~] = system('pdflatex schedule-complete.tex');
+[~,~] = system('pdflatex schedule-complete.tex');
+[~,~] = system('mv schedule-complete.pdf pdf-comps/schedule-complete.pdf');
 cd ../src

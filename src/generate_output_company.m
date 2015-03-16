@@ -1,6 +1,8 @@
 % Automatically generate all company's schedules
 
 for j = 1:program.numComps
+    disp(['Generate output company: ' num2str(j) '/' num2str(program.numComps)]);
+    
     filename = [];
     fh = fopen(['../output/doc-comp-' num2str(program.compID(j)) '.tex'], 'w');
 
@@ -25,14 +27,14 @@ for j = 1:program.numComps
      ];
     fprintf(fh, content);
     
-    generateCompanyTables(fh, program, schedule, j);
+    generateCompanyTables(fh, program, scheduleInjected, j);
     fprintf(fh, '\\end{document}\n');
 
     fclose(fh);
 
     cd ../output
-    system(['pdflatex doc-comp-' num2str(program.compID(j)) '.tex']);
-    system(['pdflatex doc-comp-' num2str(program.compID(j)) '.tex']);
-    system(['mv doc-comp-' num2str(program.compID(j)) '.pdf "pdf-comps/' program.compName{j} '.pdf"']);
+    [~,~] = system(['pdflatex doc-comp-' num2str(program.compID(j)) '.tex']);
+    [~,~] = system(['pdflatex doc-comp-' num2str(program.compID(j)) '.tex']);
+    [~,~] = system(['mv doc-comp-' num2str(program.compID(j)) '.pdf "pdf-comps/' program.compName{j} '.pdf"']);
     cd ../src
 end
